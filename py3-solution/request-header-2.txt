@@ -1,0 +1,14 @@
+GET /Home/Show/11 HTTP/1.1
+Host: edesk.pearson.pl
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+DNT: 1
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36
+Sec-Fetch-User: ?1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Referer: https://edesk.pearson.pl/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: _ga=GA1.2.1979373371.1578644857; __RequestVerificationToken=ndm0vRVEA6mTFJXkN-WPZbP2YIpC-6XGTHnmTudKPYCUdqDwxP8ge4NZAIJ-Yx_IE-JrDZL6EGafmhFGg8GN8gGchBglLs5_c-tli8VXI5A1; _gid=GA1.2.735724816.1578907802; eDeskAuth=jlNIC5AlEwNszNrv9JAvH9VXujH6qbGU_PrxYfIikR8daJKCwOqvdX7Kt7YimjpABo6VX7O9qXBsWEdaRH5wFZttFymXUGR27LZn6jf71ztcKIxW6RknBbfVNlJP6r0bc8wR7leOqWl72v3-Dd57pmdc5ZdCBPmJonbYiJpr40eEXZzR9fHFUuEbWb4tsqe83z_3xczb2QFrUlVAYGe014bKxQxJC9QuVBeL2zW_GuzwgOFicADlA62RKnNrsmu8DZIAL2FI3RwtVshT3MJ83PYwTsAD3VQpicALoui1lAKuJM98kMJlDnCGg5rqvTj_kI-ZXgRf3_kpvHpptlgDRENGHujBBtuxkhPE8kizQaL4kvvZ3aF8b4kLYO9aTbzB0LP1SZ19Q2N6ESXRtXR5kbnEtzZQ5OOJw3LkUHitP0gaWZJmcLQVyO4OaxnzjpYQdG3r7xsA8El_faFKKaU-81WXk16ErR3uYviznvpsqnqLLcRyRvCpe7j4yxtv2lEh; ASP.NET_SessionId=
