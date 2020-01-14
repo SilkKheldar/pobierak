@@ -37,7 +37,7 @@ temp = soup.find_all("a", attrs={"class": "widget"})
 
 def create_cds_list(templinks):
     cds = []
-    for idx, item in enumerate(templinks):
+    for item in templinks:
         href = item.get('href', None)  # None if there is no href for item
         cdTitle = item.find(
             "strong", attrs={"class": "text-light-op ellipsis"}).text
@@ -83,7 +83,7 @@ temp = soup.find_all(
 
 def create_songs_list(templinks):
     songs = []
-    for idx, item in enumerate(templinks):
+    for item in templinks:
         href = item.find("a", attrs={"class": "openmodal widget"}).get(
             'href', None)  # None if there is no href for item
         title = item.find("strong").text
