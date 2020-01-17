@@ -93,3 +93,15 @@ def create_songs_list(templinks):
 
 songs = create_songs_list(temp)
 pprint.pprint(songs)
+
+# ustawienie dla pierwszego utworu z danego CD  (potem do zamiany na pętlę)
+song = songs[0]
+
+# otwórz dany utwór (player) w nowym okienku
+url = 'https://edesk.pearson.pl' + song['link']
+#! czy dobrze obsłuży parametr po ?, czy trzeba dodać jako parametr do wywołania request.get()?
+
+#! czy trzeba to otworzyć w prawdziwej przeglądarce, żeby zasymulować wciśnięcie PLAY ?
+
+# uruchom odtwarzanie i nagraj utwór
+# zapisz nagrany utwór do pliku

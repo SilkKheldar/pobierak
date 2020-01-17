@@ -1,0 +1,14 @@
+GET /Audio/Index/11?p=-1 HTTP/1.1
+Host: edesk.pearson.pl
+Connection: keep-alive
+Cache-Control: max-age=0
+DNT: 1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36
+Sec-Fetch-User: ?1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Accept-Encoding: gzip, deflate, br
+Accept-Language: pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7
+Cookie: _ga=GA1.2.1979373371.1578644857; __RequestVerificationToken=ndm0vRVEA6mTFJXkN-WPZbP2YIpC-6XGTHnmTudKPYCUdqDwxP8ge4NZAIJ-Yx_IE-JrDZL6EGafmhFGg8GN8gGchBglLs5_c-tli8VXI5A1; _gid=GA1.2.735724816.1578907802; eDeskAuth=mAnQKAoGzuXAu9stXatBcG9b4os2wXRO-S5Z1tVzNnh61sDVBL83fPqWVZmfBv-dtp2zNd5yfUfvYmwT_8kIjGjyV0fL4aufJb8W1iShomD39D0ZOt65754brbGhl7xz7ZdmsKybLFKrIPo4ncYmWRqUBsyDj_tgH_F2PXlXOtZVsJBWdAcFf3Wt2ZDsp29K3Oyurli0T6ZDMA_jwdQ6xLkOrMGnF6FCh6KrgpfDUexApUI4TsbQZYzNcCFVQgHxBv3jTfvqZhfAnhlycF4H5sAZcrrq4bMBO0nuhA9foZzEsBGtmFNIKkVAFP7WZ57qmy1_yolUp02Gje7ViaF-e0Qyt8YFvIpqyFhTlmU1S5rn3TKuAHc_ijZBFR7KbrKcUxgrmJdfQffObeZtVcNSJauwk7aPVgEWH3zRpwwAKsl6BHMBZ421cklMg6A1aVFEtU6-o7fpDR4AXgc-ETfCz4s14zxLXtrHOdU-jsg46-9II90PFFmJYr4VgggRljBAzAzpS8aGy-LZPMsv0WWTwQ; ASP.NET_SessionId=qdpckk3znmqotrp1vvbq5l5r; _gat=1
