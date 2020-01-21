@@ -23,7 +23,6 @@ driver = webdriver.Chrome(driverLocation, chrome_options=chrome_options)
 url2 = driver.current_url
 print('otwarta strona to: '+url2)
 
-
 playedTime = ""
 
 playButton = driver.find_element_by_class_name("play-pause")
@@ -32,19 +31,21 @@ if playButton is not None:
     playButton.click()
 
     # zapisz nagrany utwór do pliku
+
     while playedTime != "00:00":
         playedTime = driver.find_element_by_class_name("played").text
+        # wyswietlanie postępu odtwarzania pliku dźwiękowego
         print('odegrane ' + playedTime)
         time.sleep(1)
 
+time.sleep(1)
 
-time.sleep(3)  # delay for 3 seconds
 
 # testowe przełączenie się na kolejną stronę / utwór i puszczenie go
-driver.current_url = 'https://edesk.pearson.pl/Audio/Index/559?p=11'
-#! czy to wystarczy, żeby przejść do nowej strony ???
+driver.get('https://edesk.pearson.pl/Audio/Index/559?p=11')
+# i to czy to wystarczy, żeby przejść do nowej strony, jeśli znamy jej adres :))
 
-time.sleep(10)
+time.sleep(3)  # delay for 3 seconds
 url2 = driver.current_url
 print('otwarta strona to: '+url2)
 
@@ -52,3 +53,11 @@ playButton = driver.find_element_by_class_name("play-pause")
 if playButton is not None:
     # uruchom odtwarzanie i nagraj utwór
     playButton.click()
+
+
+# INSTALLATION OF SOUND TOOLS FOR RECORDING
+#
+# Instructions on page: https://python-sounddevice.readthedocs.io/en/latest/installation.html
+#
+# conda install -c conda-forge python-sounddevice
+#
