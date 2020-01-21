@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+
 import pprint  # tymczasowo do lepszego podglądu przy tworzeniu kodu
 
 # pobierz listę dostępnych płyt  ==========================================================
@@ -92,7 +94,7 @@ def create_songs_list(templinks):
 
 
 songs = create_songs_list(temp)
-pprint.pprint(songs)
+# pprint.pprint(songs)
 
 # ustawienie dla pierwszego utworu z danego CD  (potem do zamiany na pętlę)
 song = songs[0]
@@ -103,5 +105,13 @@ url = 'https://edesk.pearson.pl' + song['link']
 
 #! czy trzeba to otworzyć w prawdziwej przeglądarce, żeby zasymulować wciśnięcie PLAY ?
 
-# uruchom odtwarzanie i nagraj utwór
-# zapisz nagrany utwór do pliku
+driver = webdriver.Firefox(executable_path="..\\selenium\\geckodriver.exe")
+print('będę otwierać stronę: '+url)
+driver.get(url)
+
+playButton = driver.find_element_by_class_name("play-pause")
+if playButton is not None:
+    # uruchom odtwarzanie i nagraj utwór
+    playButton.click()
+
+    # zapisz nagrany utwór do pliku
