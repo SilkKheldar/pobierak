@@ -11,6 +11,7 @@ http://people.csail.mit.edu/hubert/pyaudio/
 
 """
 
+import sounddevice as sd
 import pyaudio
 import wave
 
@@ -23,11 +24,25 @@ WAVE_OUTPUT_FILENAME = "output.wav"
 
 p = pyaudio.PyAudio()
 
+# input selection
+
+print(sd.query_devices())
+
+info = p.get_host_api_info_by_index(0)
+numdevices = info.get('deviceCount')
+for i in range(0, numdevices):
+    if (p.get_device_info_by_host_api_device_index(0, i).get('maxInputChannels')) > 0:
+        print("Input Device id ", i, " - ",
+              p.get_device_info_by_host_api_device_index(0, i).get('name'))
+
+
+# recording settings
 stream = p.open(format=FORMAT,
                 channels=CHANNELS,
                 rate=RATE,
                 input=True,
-                frames_per_buffer=CHUNK)
+                frames_per_buffer=CHUNK,
+                input_device_index=1)
 
 print("* recording")
 
