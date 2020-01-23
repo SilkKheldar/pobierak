@@ -11,7 +11,7 @@ http://people.csail.mit.edu/hubert/pyaudio/
 
 """
 
-import sounddevice as sd
+#import sounddevice as sd
 import pyaudio
 import wave
 
@@ -26,7 +26,7 @@ p = pyaudio.PyAudio()
 
 # input selection
 
-print(sd.query_devices())
+# print(sd.query_devices())
 
 info = p.get_host_api_info_by_index(0)
 numdevices = info.get('deviceCount')
@@ -35,20 +35,22 @@ for i in range(0, numdevices):
         print("Input Device id ", i, " - ",
               p.get_device_info_by_host_api_device_index(0, i).get('name'))
 
-
 # recording settings
 stream = p.open(format=FORMAT,
                 channels=CHANNELS,
                 rate=RATE,
                 input=True,
                 frames_per_buffer=CHUNK,
-                input_device_index=1)
+                # this number can change!!! we need audio input device named "przechwytywanie nagrywania..." (dependent on system/hardware)
+                input_device_index=1
+                )
 
 print("* recording")
 
 frames = []
 
 for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+    # print(i)
     data = stream.read(CHUNK)
     frames.append(data)
 
