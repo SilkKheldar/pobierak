@@ -11,13 +11,14 @@
 
 # jako parametr wywołania jest oczekiwana nazwa pliku json z listą utworów do odtworzenia w serwisie i nagrania
 
-import wave
-import pyaudio
+import json
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import json
+import wave
+import pyaudio
 import sys
+import os
 
 import pprint  # tymczasowo do lepszego podglądu przy tworzeniu kodu
 
@@ -88,27 +89,33 @@ for i in range(songsNo):
                         )
         frames = []
 
+        # ustal czas trwania utworu
+        songTime = driver.find_element_by_class_name("duration").text
+        songTimes = songTime.split(':')
+        lenInSeconds = int(songTimes[0])*60 + int(songTimes[1])
+
         # uruchom odtwarzanie utworu na stronie
         playButton.click()
-        print("Nagrywam", song['title'], "...")
+        print("Nagrywam", song['title'], "czas: ",
+              songTime, "(", lenInSeconds, ")")
 
-        # nagrywaj aż do zakończenia odtwarzania utworu
-        playedTime = ""
-        recFrames = 0  # zmienna na zabezpieczanie wyłaczania nagrania zaraz po starcie, gdy czas odtworzony pokazuje jeszcze "00:00"
-        while playedTime != "00:00":
+        # nagrywaj przez ustalony czas
+        for i in range(0, int(RATE / CHUNK * lenInSeconds)):
             data = stream.read(CHUNK)
             frames.append(data)
-            if recFrames > 2:
-                playedTime = driver.find_element_by_class_name("played").text
-            else:
-                recFrames = recFrames + 1
-            print("recFrames =", recFrames)
-            print("odegrane", playedTime)
 
         stream.stop_stream()
         stream.close()
         # p.terminate()
 
+        if i == 0:  # przy pierwszym pliku tworzymy katalog jeśli go nie ma
+            if not os.path.isdir(song['cd']):
+                try:
+                    os.mkdir(song['cd'])
+                except OSError:
+                    print("Nie udało się utworzyć katalogu %s !" % song['cd'])
+                else:
+                    print("Utworzony katalog %s" % song['cd'])
         outputFileName = song['cd']+"\\"+song['title']+".wav"
         print('Nagrywanie zakończone. Zapisuję do pliku: ' + outputFileName)
         wf = wave.open(outputFileName, 'wb')
