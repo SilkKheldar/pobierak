@@ -20,7 +20,7 @@ import pyaudio
 import sys
 import os
 
-import pprint  # tymczasowo do lepszego podglądu przy tworzeniu kodu
+# import pprint  # tymczasowo do lepszego podglądu przy tworzeniu kodu
 
 
 # wczytanie listy plików na podstawie parametru
@@ -31,14 +31,7 @@ jsonSourceFile = sys.argv[1]
 with open(jsonSourceFile, 'r') as f:
     sounds = json.load(f)
 
-"""
-print(type(sounds))
-print(len(sounds))
-pprint.pprint(sounds)
-"""
-
-# inicjacja nagrywania dźwięku
-
+# parametry nagrywania dźwięku (dla PyAudio)
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
@@ -55,7 +48,6 @@ for i in range(0, numdevices):
               p.get_device_info_by_host_api_device_index(0, i).get('name'))
 inputDevice = int(
     input("Podaj numer urządzenia Przechwytywanie odtwarzania: "))
-# p.terminate()
 
 # inicjacja Selenium do pracy z już otwartą stroną (zalogowanej do serwisu)
 chrome_options = Options()
@@ -63,7 +55,8 @@ chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
 # Change chrome driver path accordingly
 driverLocation = "C:\\xampp\\htdocs\\pearson\\selenium\\chromedriver.exe"
 #        os.environ["webdriver.chrome.driver"] = driverLocation
-driver = webdriver.Chrome(driverLocation, chrome_options=chrome_options)
+driver = webdriver.Chrome(driverLocation, options=chrome_options)
+#driver = webdriver.Chrome(driverLocation, chrome_options=chrome_options)
 
 linkSuffix = 'https://edesk.pearson.pl'
 songsNo = len(sounds)
@@ -100,20 +93,20 @@ for i in range(songsNo):
               songTime, "(", lenInSeconds, ")")
 
         # nagrywaj przez ustalony czas
-        for i in range(0, int(RATE / CHUNK * lenInSeconds)):
+        for j in range(0, int(RATE / CHUNK * lenInSeconds)):
             data = stream.read(CHUNK)
             frames.append(data)
 
         stream.stop_stream()
         stream.close()
-        # p.terminate()
 
         if i == 0:  # przy pierwszym pliku tworzymy katalog jeśli go nie ma
-            if not os.path.isdir(song['cd']):
+            if not os.path.exists(song['cd']):
                 try:
                     os.mkdir(song['cd'])
                 except OSError:
                     print("Nie udało się utworzyć katalogu %s !" % song['cd'])
+                    exit(1)
                 else:
                     print("Utworzony katalog %s" % song['cd'])
         outputFileName = song['cd']+"\\"+song['title']+".wav"

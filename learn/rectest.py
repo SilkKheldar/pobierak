@@ -11,7 +11,7 @@ http://people.csail.mit.edu/hubert/pyaudio/
 
 """
 
-#import sounddevice as sd
+import sounddevice as sd
 import pyaudio
 import wave
 
@@ -19,14 +19,14 @@ CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
-RECORD_SECONDS = 8
+RECORD_SECONDS = 5
 WAVE_OUTPUT_FILENAME = "output.wav"
 
 p = pyaudio.PyAudio()
 
 # input selection
 
-# print(sd.query_devices())
+print(sd.query_devices())
 
 info = p.get_host_api_info_by_index(0)
 numdevices = info.get('deviceCount')
@@ -41,8 +41,7 @@ stream = p.open(format=FORMAT,
                 rate=RATE,
                 input=True,
                 frames_per_buffer=CHUNK,
-                # this number can change!!! we need audio input device named "przechwytywanie nagrywania..." (dependent on system/hardware)
-                input_device_index=1
+                # input_device_index=1  # this number can change!!! we need audio input device named "przechwytywanie nagrywania..." (dependent on system/hardware)
                 )
 
 print("* recording")

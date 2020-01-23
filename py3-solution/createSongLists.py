@@ -1,13 +1,10 @@
-# na razie zarzucone > robię rozwiązanie wykorzystujące BeautifulSoup i Selenium w jednym pliku > choc wystarczyłoby samo selenium
+# tworzy zapisaną w formacie json listę stron z serwisu edesk.pearson.pl do nagrania z nich dźwięków przez program recordSounds.py
+# zakładamy na wstępie, że użytkownik jest zalogowany do serwisu (być może dane autentykacyjne w kodzie wymagają odświeżenia jeśli są aktualizowane po upływie określonego czasu)
 
 import requests
 from bs4 import BeautifulSoup
 import json
-
-import pprint  # tymczasowo do lepszego podglądu przy tworzeniu kodu
-
-# tworzy zapisaną w formacie json listę stron z serwisu edesk.pearson.pl do nagrania z nich dźwięków przez program recordSounds.py
-# zakładamy na wstępie, że użytkownik jest zalogowany do serwisu (być może dane autentykacyjne w kodzie wymagają odświeżenia jeśli są aktualizowane po upływie określonego czasu)
+# import pprint  # tymczasowo do lepszego podglądu przy tworzeniu kodu
 
 # pobierz listę dostępnych płyt  ==========================================================
 url = 'https://edesk.pearson.pl/'
@@ -25,21 +22,15 @@ headers = {
     'Sec-Fetch-Site': 'cross-site',
     'Upgrade-Insecure-Requests': '1',
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36'
+    # treść ciągów autoryzujących musi być aktualna!
+    # Najprościej wkleić z Request Headers po zalogowaniu i wywołaniu strony
 }
-
-# treść ciągów autoryzujących musi być aktualna!
-# Najprościej wkleić z Request Headers po zalogowaniu i wywołaniu strony
 
 res = requests.get(url, headers=headers)
 soup = BeautifulSoup(res.text, 'html.parser')
 
 temp = soup.find_all("a", attrs={"class": "widget"})
-
 # pprint.pprint(temp)
-
-# print(soup.find(id='up_22031644'))
-# print(soup.select('.score'))
-# print(soup.select('#score_22031644'))
 
 
 def create_cds_list(templinks):
@@ -56,13 +47,8 @@ def create_cds_list(templinks):
 cdlist = create_cds_list(temp)
 # pprint.pprint(cdlist)
 
-# ustawienie dla pierwszego CD  (potem do zamiany na pętlę)
-#cd = cdlist[0]
-
 for cd in cdlist:
-
     # POBIERZ LISTĘ UTWORÓW DLA DANEGO CD =============================================>
-
     url = 'https://edesk.pearson.pl' + cd['link']
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -78,10 +64,9 @@ for cd in cdlist:
         'Sec-Fetch-Site': 'same-origin',
         'Upgrade-Insecure-Requests': '1',
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36'
+        # treść ciągów autoryzujących musi być aktualna!
+        # Najprościej wkleić z Request Headers po zalogowaniu i wywołaniu strony
     }
-
-    # treść ciągów autoryzujących musi być aktualna!
-    # Najprościej wkleić z Request Headers po zalogowaniu i wywołaniu strony
 
     res = requests.get(url, headers=headers)
     soup = BeautifulSoup(res.text, 'html.parser')
@@ -106,4 +91,3 @@ for cd in cdlist:
     fname = 'songs_' + cd['serie'] + '_' + cd['title'] + '.json'
     with open(fname, 'w') as f:  # writing JSON object
         json.dump(songs, f)
-    # nie trzeba jakoś zamykać pliku ???
